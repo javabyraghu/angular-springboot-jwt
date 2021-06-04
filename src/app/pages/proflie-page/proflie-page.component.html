@@ -1,0 +1,24 @@
+<div class="container" *ngIf="currentUser; else loggedOut">
+    <header class="jumbotron bg-primary text-white">
+        <h3> PROFILE : {{currentUser.username | uppercase }}</h3>
+    </header>
+    <table class="table table-hover">
+        <tr>
+            <th class="bg-info text-white">ID</th>
+            <td>{{currentUser.id}}</td>
+        </tr>
+        <tr>
+            <th class="bg-info text-white">EMAIL</th>
+            <td>{{currentUser.email}}</td>
+        </tr>
+        <tr>
+            <th class="bg-info text-white">ROLES</th>
+            <td>{{currentUser.roles}}</td>
+        </tr>
+        <tr>
+            <th class="bg-info text-white">TOKEN</th>
+            <td>{{currentUser.token.substring(0,15)}}...{{currentUser.token.substr(currentUser.token.length-15)}}</td>
+        </tr>
+    </table>
+</div>
+<ng-template #loggedOut>Please Login!!</ng-template>

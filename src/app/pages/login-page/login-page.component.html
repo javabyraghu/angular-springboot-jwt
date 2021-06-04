@@ -1,0 +1,69 @@
+<h3>User Login Form</h3>
+<form
+  *ngIf="!isLoggedIn"
+  (ngSubmit)="loginForm.form.valid && onSubmit()"
+  #loginForm="ngForm"
+>
+  <!-- Username input -->
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      name="username"
+      id="username"
+      [(ngModel)]="loginModel.username"
+      #username="ngModel"
+      required
+      
+    />
+    <div
+      class="alert-danger"
+      *ngIf="username.invalid && (username.touched || loginForm.submitted)"
+    >
+      <span *ngIf="username.errors?.required">Username is required</span>
+     
+    </div>
+  </div>
+
+  
+
+  <!-- Password input -->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password"
+      [(ngModel)]="loginModel.password"
+      #password="ngModel"
+      required
+      minlength="4"
+    />
+    <div
+      class="alert-danger"
+      *ngIf="password.invalid && (password.touched || loginForm.submitted)"
+    >
+      <span *ngIf="password.errors?.required">Password is required</span>
+      <span *ngIf="password.errors?.minlength">Password min is 4 chars</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success" [disabled]="!loginForm.form.valid">
+      Login User
+    </button>
+  </div>
+
+  <div
+    class="alert alert-warning"
+    *ngIf="loginForm.submitted && isLoginFailed"
+  >
+   Login Failed : {{ errorMessage }}
+  </div>
+</form>
+
+<div class="alert alert-success" *ngIf="isLoggedIn">
+  Loggin In as {{roles}}
+</div>

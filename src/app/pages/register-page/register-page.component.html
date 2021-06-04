@@ -1,0 +1,97 @@
+<h3>User Register Form</h3>
+<form
+  *ngIf="!isSuccessful"
+  (ngSubmit)="registerForm.form.valid && onSubmit()"
+  #registerForm="ngForm"
+>
+  <!-- Username input -->
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      name="username"
+      id="username"
+      [(ngModel)]="user.username"
+      #username="ngModel"
+      required
+      minlength="3"
+      maxlength="20"
+    />
+    <div
+      class="alert-danger"
+      *ngIf="username.invalid && (username.touched || registerForm.submitted)"
+    >
+      <span *ngIf="username.errors?.required">Username is required</span>
+      <span *ngIf="username.errors?.minlength"
+        >Username must be 3 chars atleast</span
+      >
+      <span *ngIf="username.errors?.maxlength"
+        >Username must be 20 char at max</span
+      >
+    </div>
+  </div>
+
+  <!-- Email input -->
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="text"
+      class="form-control"
+      name="email"
+      id="email"
+      [(ngModel)]="user.email"
+      #email="ngModel"
+      required
+      email
+    />
+    <div
+      class="alert-danger"
+      *ngIf="email.invalid && (email.touched || registerForm.submitted)"
+    >
+      <span *ngIf="email.errors?.required">Email is required</span>
+      <span *ngIf="email.errors?.email">Invalid Email Format</span>
+    </div>
+  </div>
+
+  <!-- Password input -->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password"
+      [(ngModel)]="user.password"
+      #password="ngModel"
+      required
+      minlength="4"
+      maxlength="40"
+    />
+    <div
+      class="alert-danger"
+      *ngIf="password.invalid && (password.touched || registerForm.submitted)"
+    >
+      <span *ngIf="password.errors?.required">Password is required</span>
+      <span *ngIf="password.errors?.minlength">Password min is 4 chars</span>
+      <span *ngIf="password.errors?.maxlength">Password max is 40 chars</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success" [disabled]="!registerForm.form.valid">
+      Register User
+    </button>
+  </div>
+
+  <div
+    class="alert alert-warning"
+    *ngIf="registerForm.submitted && !isSuccessful"
+  >
+    {{ message }}
+  </div>
+</form>
+
+<div class="alert alert-success" *ngIf="isSuccessful">
+  {{ message }}
+</div>
